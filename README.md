@@ -12,15 +12,15 @@ This application is designed with a grandparent or another elderly person in min
 ***
 # User Manual
 1. Pause/Play
-  - To play, press the right arrow. To pause, press the two vertical lines.
-  - Make sure you select a song to play before pressing pause or play!
+    - To play, press the right arrow. To pause, press the two vertical lines.
+    - Make sure you select a song to play before pressing pause or play!
 
 2. Select a song by pressing the “+” icon
-  - This action will skip the current song and begin playing the newly selected song
-  - You can select songs in the mp3 or wav file format
-  - The computer’s file system is used to select files (songs) to play
+    - This action will skip the current song and begin playing the newly selected song
+    - You can select songs in the mp3 or wav file format
+    - The computer’s file system is used to select files (songs) to play
 
 3. Skipping and returning to previous songs
-  - The backwards button is used to play songs that were previously played in the session
-  - The forwards button is used to play songs that were added after the current song
-    - If the current song is the last song, pressing the forward button will not do anything
+    - The backwards button is used to play songs that were previously played in the session
+    - The forwards button is used to play songs that were added after the current song
+      - If the current song is the last song, pressing the forward button will not do anything
