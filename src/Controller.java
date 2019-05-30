@@ -9,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-//import javafx.scene.control.Slider;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
@@ -31,8 +30,6 @@ public class Controller implements Initializable
     private MediaView player;
     @FXML
     private Button prevButton, nextButton;
-//    @FXML
-//    private Slider volume;
     @FXML
     private Label songName;
     @FXML
@@ -96,13 +93,6 @@ public class Controller implements Initializable
                         }
                     }
                 });
-//                volume.valueProperty().addListener((Observable observable) ->
-//                {
-//                    if (volume.isValueChanging())
-//                    {
-//                        player.getMediaPlayer().setVolume(volume.getValue() / 100);
-//                    }
-//                });
                 player.getMediaPlayer().setOnEndOfMedia(() ->
                 {
                     playPause.setSelected(false);
@@ -169,13 +159,6 @@ public class Controller implements Initializable
                 }
             }
         });
-//        volume.valueProperty().addListener((Observable observable) ->
-//        {
-//            if (volume.isValueChanging())
-//            {
-//                player.getMediaPlayer().setVolume(volume.getValue() / 100);
-//            }
-//        });
         player.getMediaPlayer().setOnEndOfMedia(() ->
         {
             playPause.setSelected(false);
