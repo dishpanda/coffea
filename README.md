@@ -8,7 +8,7 @@ This application is designed with a grandparent or another elderly person in min
 ***
 # System Requirements
 - Windows 7
-- Latest installation of Java SE
+- Java SE 8
 ***
 # User Manual
 1. Pause/Play
