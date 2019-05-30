@@ -20,9 +20,14 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * Coffea Controller
+ *
+ * @author: Rahul Deshpande
+ * @author: Siddhant Sharma
+ */
 public class Controller implements Initializable
 {
-
     boolean firstTime = true;
     @FXML
     private ToggleButton playPause;

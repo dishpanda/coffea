@@ -5,6 +5,12 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+/**
+ * Coffea main class
+ *
+ * @author Rahul Deshpande
+ * @author Siddhant Sharma
+ */
 public class Coffea extends Application {
     @Override
     /**
