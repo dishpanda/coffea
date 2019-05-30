@@ -1,16 +1,17 @@
+ /* Authors: Rahul Deshpande, Siddhant Sharma */
  #root {
      -fx-background-color: black;
  }
  .button {
      -fx-background-color: transparent;
  }
- #prevButton {
+ #backButton {
      -fx-background-image: url("../img/previous.png");
      -fx-background-repeat: no-repeat;
      -fx-background-position: center;
      -fx-background-size: 12px 12px;
  }
- #nextButton {
+ #skipButton {
      -fx-background-image: url("../img/skip.png");
      -fx-background-repeat: no-repeat;
      -fx-background-position: center;
@@ -29,10 +30,8 @@
      -fx-background-position: center;
      -fx-background-size: 12px 12px;
  }
- #volume {
 
- }
- #browse {
+ #chooseSong {
      -fx-background-image: url("../img/add.png");
      -fx-background-repeat: no-repeat;
      -fx-background-position: center;

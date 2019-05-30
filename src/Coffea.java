@@ -8,8 +8,8 @@ import javafx.stage.Stage;
 /**
  * Coffea main class
  *
- * @author Rahul Deshpande
- * @author Siddhant Sharma
+ * @author: Rahul Deshpande
+ * @author: Siddhant Sharma
  */
 public class Coffea extends Application {
     @Override
@@ -24,7 +24,7 @@ public class Coffea extends Application {
         stage.setScene(scene);
         stage.getIcons().add(new Image(getClass().getResourceAsStream("resources/img/coffee-cup.png")));
         stage.show();
-        
+
     }
     /**
      * Launches JavaFX Music Player

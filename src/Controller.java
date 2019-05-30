@@ -3,7 +3,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
-import javafx.beans.Observable;
 import javafx.collections.MapChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,13 +33,13 @@ public class Controller implements Initializable
     @FXML
     private MediaView player;
     @FXML
-    private Button prevButton, nextButton;
+    private Button backButton, skipButton;
     @FXML
     private Label songName;
     @FXML
-    private ImageView albumArt;
+    private ImageView albumCover;
     @FXML
-    private Button browse;
+    private Button chooseSong;
     private ArrayList<Media> mediaFiles = new ArrayList();
     private int counter = -1;
 
@@ -60,7 +59,7 @@ public class Controller implements Initializable
     /**
      * Handles when the play / pause button is clicked
      */
-    private void playPauseClicked(ActionEvent event)
+    private void playPauseClick(ActionEvent event)
     {
         if (firstTime) {
             File file = null;
@@ -69,15 +68,14 @@ public class Controller implements Initializable
             FileChooser.ExtensionFilter fileExtension = new FileChooser.ExtensionFilter("Audio files", "*.mp3", "*.wav");
             fileChooser.getExtensionFilters().add(fileExtension);
             file = fileChooser.showOpenDialog(stage);
-            System.out.println(file);
             if (file != null)
             {
                 Media media;
                 media = new Media(file.toURI().toASCIIString());
                 mediaFiles.add(media);
                 MediaPlayer mediaplayer = new MediaPlayer(media);
-                prevButton.setDisable(false);
-                nextButton.setDisable(false);
+                backButton.setDisable(false);
+                skipButton.setDisable(false);
                 ++counter;
                 player = new MediaView(mediaplayer);
                 mediaplayer.setAutoPlay(true);
@@ -87,12 +85,13 @@ public class Controller implements Initializable
                         if (change.getKey().equals("image"))
                         {
                             Image art = (Image) change.getValueAdded();
-                            double artWidth = art.getWidth(), viewWidth = albumArt.getFitWidth();
-                            albumArt.setX(200);
-                            albumArt.setImage(art);
-                            albumArt.setX(200);
+                            double artWidth = art.getWidth(), viewWidth = albumCover.getFitWidth();
+                            albumCover.setX(200);
+                            albumCover.setImage(art);
+                            albumCover.setX(200);
                         }
-                        if(change.getKey().equals("title")){
+                        if(change.getKey().equals("title"))
+                        {
                             String name = (String) change.getValueAdded();
                             songName.setText(name);
                         }
@@ -121,7 +120,7 @@ public class Controller implements Initializable
     /**
      * Handles the choosing of a song file
      */
-    private void browseClicked(ActionEvent event)
+    private void chooseSong(ActionEvent event)
     {
         firstTime = false;
         Stage stage = (Stage) playPause.getScene().getWindow();
@@ -137,11 +136,9 @@ public class Controller implements Initializable
         {
             player.getMediaPlayer().dispose();
         } catch (Exception e)
-        {
-
-        }
-        prevButton.setDisable(false);
-        nextButton.setDisable(false);
+        { }
+        backButton.setDisable(false);
+        skipButton.setDisable(false);
         playPause.setSelected(true);
         ++counter;
         mediaplayer.setAutoPlay(true);
@@ -153,12 +150,13 @@ public class Controller implements Initializable
                 if (change.getKey().equals("image"))
                 {
                     Image art = (Image) change.getValueAdded();
-                    double artWidth = art.getWidth(), viewWidth = albumArt.getFitWidth();
-                    albumArt.setX(50);
-                    albumArt.setImage(art);
-                    albumArt.setX(50);
+                    double artWidth = art.getWidth(), viewWidth = albumCover.getFitWidth();
+                    albumCover.setX(50);
+                    albumCover.setImage(art);
+                    albumCover.setX(50);
                 }
-                if(change.getKey().equals("title")){
+                if(change.getKey().equals("title"))
+                {
                     String name = (String) change.getValueAdded();
                     songName.setText(name);
                 }
@@ -174,14 +172,14 @@ public class Controller implements Initializable
     /**
      * Handles clicking of previous button
      */
-    private void prevClicked(ActionEvent event)
+    private void backClick(ActionEvent event)
     {
         if (counter == 0)
         {
             player.getMediaPlayer().seek(Duration.ZERO);
         } else {
             player.getMediaPlayer().dispose();
-            albumArt.setImage(null);
+            albumCover.setImage(null);
             player = new MediaView(new MediaPlayer(mediaFiles.get(--counter)));
             player.getMediaPlayer().play();
             playPause.setSelected(true);
@@ -190,22 +188,23 @@ public class Controller implements Initializable
             });
             player.getMediaPlayer().getMedia().getMetadata().addListener((MapChangeListener.Change<? extends String, ? extends Object> change) ->
             {
-            if (change.wasAdded())
-            {
-                if (change.getKey().equals("image"))
+                if (change.wasAdded())
                 {
-                    Image art = (Image) change.getValueAdded();
-                    double artWidth = art.getWidth(), viewWidth = albumArt.getFitWidth();
-                    albumArt.setX(50);
-                    albumArt.setImage(art);
-                    albumArt.setX(50);
+                    if (change.getKey().equals("image"))
+                    {
+                        Image art = (Image) change.getValueAdded();
+                        double artWidth = art.getWidth(), viewWidth = albumCover.getFitWidth();
+                        albumCover.setX(50);
+                        albumCover.setImage(art);
+                        albumCover.setX(50);
+                    }
+                    if(change.getKey().equals("title"))
+                    {
+                        String name = (String) change.getValueAdded();
+                        songName.setText(name);
+                    }
                 }
-                if(change.getKey().equals("title")){
-                    String name = (String) change.getValueAdded();
-                    songName.setText(name);
-                }
-            }
-        });
+            });
         }
     }
 
@@ -213,7 +212,7 @@ public class Controller implements Initializable
     /**
      * Handles clicking of next button
      */
-    private void nextClicked(ActionEvent event)
+    private void skipClick(ActionEvent event)
     {
         if (counter + 1 == mediaFiles.size())
         {
@@ -221,7 +220,7 @@ public class Controller implements Initializable
             playPause.setSelected(false);
         } else {
             player.getMediaPlayer().dispose();
-            albumArt.setImage(null);
+            albumCover.setImage(null);
             player = new MediaView(new MediaPlayer(mediaFiles.get(++counter)));
             playPause.setSelected(true);
             player.getMediaPlayer().play();
@@ -230,22 +229,23 @@ public class Controller implements Initializable
             });
             player.getMediaPlayer().getMedia().getMetadata().addListener((MapChangeListener.Change<? extends String, ? extends Object> change) ->
             {
-            if (change.wasAdded())
-            {
-                if (change.getKey().equals("image"))
+                if (change.wasAdded())
                 {
-                    Image art = (Image) change.getValueAdded();
-                    double artWidth = art.getWidth(), viewWidth = albumArt.getFitWidth();
-                    albumArt.setX(50);
-                    albumArt.setImage(art);
-                    albumArt.setX(50);
+                    if (change.getKey().equals("image"))
+                    {
+                        Image art = (Image) change.getValueAdded();
+                        double artWidth = art.getWidth(), viewWidth = albumCover.getFitWidth();
+                        albumCover.setX(50);
+                        albumCover.setImage(art);
+                        albumCover.setX(50);
+                    }
+                    if(change.getKey().equals("title"))
+                    {
+                        String name = (String) change.getValueAdded();
+                        songName.setText(name);
+                    }
                 }
-                if(change.getKey().equals("title")){
-                    String name = (String) change.getValueAdded();
-                    songName.setText(name);
-                }
-            }
-        });
+            });
         }
     }
 }
