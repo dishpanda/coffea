@@ -15,18 +15,12 @@ This application is designed with a grandparent or another elderly person in min
   - To play, press the right arrow. To pause, press the two vertical lines.
   - Make sure you select a song to play before pressing pause or play!
 
-2. Select a song by pressing “Songs”
-  - To play a song, click on the song you would like to play 
-  - Songs will play in the order of the playlist
-            
-3. Select a playlist by pressing “Playlist”
-  - To play a playlist, click the playlist button
-  - Select the playlist you would like to play.
-            
-4. Load Music
-  - Create a text file with the locations for song files. The song files must be of the .wav / .mp3 file type
-  - To upload music, select the “Upload Music” button
-  - Select the text file with the song locations
-  - Name the playlist by typing the name into the text box
-          
+2. Select a song by pressing the “+” icon
+  - This action will skip the current song and begin playing the newly selected song
+  - You can select songs in the mp3 or wav file format
+  - The computer’s file system is used to select files (songs) to play
 
+3. Skipping and returning to previous songs
+  - The backwards button is used to play songs that were previously played in the session
+  - The forwards button is used to play songs that were added after the current song
+    - If the current song is the last song, pressing the forward button will not do anything
