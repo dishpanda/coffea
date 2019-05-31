@@ -3,7 +3,7 @@ Using JavaFX and advanced data structures, we're going to create a new kind of m
 
 This project is the independent project of Rahul Deshpande and Siddhant Sharma for the AP CS A class at California High School.
 
-Team 5: Coffea
+### Team 5: Coffea  
     By: Rahul Deshpande, Siddhant Sharma
 ***
 # Objective 
