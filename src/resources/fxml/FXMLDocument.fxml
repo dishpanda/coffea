@@ -22,9 +22,10 @@
         <ToolBar fx:id="toolContainer" pickOnBounds="false" prefHeight="40.0" prefWidth="557.0">
             <items>
                 <Button fx:id="backButton" disable="true" mnemonicParsing="false" onAction="#backClick" prefHeight="20.0" prefWidth="32.0" textAlignment="CENTER" />
-                <ToggleButton fx:id="playPause" mnemonicParsing="false" onAction="#playPauseClick" prefHeight="30.0" prefWidth="45.0" snapToPixel="false" />
+                <ToggleButton fx:id="playPause" mnemonicParsing="false" onAction="#playPauseClick" prefHeight="20.0" prefWidth="32.0" snapToPixel="false" />
                 <Button fx:id="skipButton" disable="true" mnemonicParsing="false" onAction="#skipClick" prefHeight="20.0" prefWidth="32.0" textAlignment="CENTER" />
-                <Label fx:id="songName" prefHeight="17.0" prefWidth="125.0"/>
+                <Label fx:id="songName" prefHeight="17.0" prefWidth="69.0"/>
+                <Label fx:id="artistName" prefHeight="17.0" prefWidth="69.0"/>
                 <Button fx:id="chooseSong" mnemonicParsing="false" onAction="#chooseSong" prefHeight="25.0" prefWidth="28.0" />
             </items>
             <VBox.margin>

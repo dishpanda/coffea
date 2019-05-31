@@ -1,7 +1,3 @@
-import java.io.File;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.collections.MapChangeListener;
 import javafx.event.ActionEvent;
@@ -19,14 +15,18 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
 /**
  * Coffea Controller
  *
  * @author: Rahul Deshpande
  * @author: Siddhant Sharma
  */
-public class Controller implements Initializable
-{
+public class Controller implements Initializable {
     boolean firstTime = true;
     @FXML
     private ToggleButton playPause;
@@ -36,6 +36,8 @@ public class Controller implements Initializable
     private Button backButton, skipButton;
     @FXML
     private Label songName;
+    @FXML
+    private Label artistName;
     @FXML
     private ImageView albumCover;
     @FXML
@@ -47,29 +49,23 @@ public class Controller implements Initializable
     /**
      * Handles initialization
      */
-    public void initialize(URL url, ResourceBundle rb)
-    {
-        Platform.runLater(() -> {
-            playPause.requestFocus();
-        });
-
+    public void initialize(URL url, ResourceBundle rb) {
+        Platform.runLater(() -> playPause.requestFocus());
     }
 
     @FXML
     /**
      * Handles when the play / pause button is clicked
      */
-    private void playPauseClick(ActionEvent event)
-    {
+    private void playPauseClick(ActionEvent event) {
         if (firstTime) {
-            File file = null;
+            File file;
             Stage stage = (Stage) playPause.getScene().getWindow();
             FileChooser fileChooser = new FileChooser();
             FileChooser.ExtensionFilter fileExtension = new FileChooser.ExtensionFilter("Audio files", "*.mp3", "*.wav");
             fileChooser.getExtensionFilters().add(fileExtension);
             file = fileChooser.showOpenDialog(stage);
-            if (file != null)
-            {
+            if (file != null) {
                 Media media;
                 media = new Media(file.toURI().toASCIIString());
                 mediaFiles.add(media);
@@ -79,24 +75,7 @@ public class Controller implements Initializable
                 ++counter;
                 player = new MediaView(mediaplayer);
                 mediaplayer.setAutoPlay(true);
-                player.getMediaPlayer().getMedia().getMetadata().addListener((MapChangeListener.Change<? extends String, ? extends Object> change) -> {
-                    if (change.wasAdded())
-                    {
-                        if (change.getKey().equals("image"))
-                        {
-                            Image art = (Image) change.getValueAdded();
-                            double artWidth = art.getWidth(), viewWidth = albumCover.getFitWidth();
-                            albumCover.setX(200);
-                            albumCover.setImage(art);
-                            albumCover.setX(200);
-                        }
-                        if(change.getKey().equals("title"))
-                        {
-                            String name = (String) change.getValueAdded();
-                            songName.setText(name);
-                        }
-                    }
-                });
+                checkForChange();
                 player.getMediaPlayer().setOnEndOfMedia(() ->
                 {
                     playPause.setSelected(false);
@@ -107,8 +86,7 @@ public class Controller implements Initializable
                 playPause.setSelected(false);
             }
         } else {
-            if (playPause.isSelected())
-            {
+            if (playPause.isSelected()) {
                 player.getMediaPlayer().play();
             } else {
                 player.getMediaPlayer().pause();
@@ -120,8 +98,7 @@ public class Controller implements Initializable
     /**
      * Handles the choosing of a song file
      */
-    private void chooseSong(ActionEvent event)
-    {
+    private void chooseSong(ActionEvent event) {
         firstTime = false;
         Stage stage = (Stage) playPause.getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
@@ -132,39 +109,46 @@ public class Controller implements Initializable
         media = new Media(file.toURI().toASCIIString());
         mediaFiles.add(media);
         MediaPlayer mediaplayer = new MediaPlayer(media);
-        try
-        {
+        try {
             player.getMediaPlayer().dispose();
-        } catch (Exception e)
-        { }
+        } catch (Exception e) {
+        }
         backButton.setDisable(false);
         skipButton.setDisable(false);
         playPause.setSelected(true);
         ++counter;
         mediaplayer.setAutoPlay(true);
         player = new MediaView(mediaplayer);
+        checkForChange();
+        player.getMediaPlayer().setOnEndOfMedia(() ->
+        {
+            playPause.setSelected(false);
+        });
+    }
+
+
+    // This method was taken from the answer to this question on StackOverflow since we had trouble with retrieving metadata.
+    // https://stackoverflow.com/questions/43143756/how-to-get-metadata-from-media-objects
+    private void checkForChange() {
         player.getMediaPlayer().getMedia().getMetadata().addListener((MapChangeListener.Change<? extends String, ? extends Object> change) ->
         {
-            if (change.wasAdded())
-            {
-                if (change.getKey().equals("image"))
-                {
+            if (change.wasAdded()) {
+                if (change.getKey().equals("image")) {
                     Image art = (Image) change.getValueAdded();
                     double artWidth = art.getWidth(), viewWidth = albumCover.getFitWidth();
                     albumCover.setX(50);
                     albumCover.setImage(art);
                     albumCover.setX(50);
                 }
-                if(change.getKey().equals("title"))
-                {
+                if (change.getKey().equals("title")) {
                     String name = (String) change.getValueAdded();
                     songName.setText(name);
                 }
+                if (change.getKey().equals("artist")) {
+                    String name = (String) change.getValueAdded();
+                    artistName.setText(name);
+                }
             }
-        });
-        player.getMediaPlayer().setOnEndOfMedia(() ->
-        {
-            playPause.setSelected(false);
         });
     }
 
@@ -172,10 +156,8 @@ public class Controller implements Initializable
     /**
      * Handles clicking of previous button
      */
-    private void backClick(ActionEvent event)
-    {
-        if (counter == 0)
-        {
+    private void backClick(ActionEvent event) {
+        if (counter == 0) {
             player.getMediaPlayer().seek(Duration.ZERO);
         } else {
             player.getMediaPlayer().dispose();
@@ -186,25 +168,7 @@ public class Controller implements Initializable
             player.getMediaPlayer().setOnEndOfMedia(() -> {
                 playPause.setSelected(false);
             });
-            player.getMediaPlayer().getMedia().getMetadata().addListener((MapChangeListener.Change<? extends String, ? extends Object> change) ->
-            {
-                if (change.wasAdded())
-                {
-                    if (change.getKey().equals("image"))
-                    {
-                        Image art = (Image) change.getValueAdded();
-                        double artWidth = art.getWidth(), viewWidth = albumCover.getFitWidth();
-                        albumCover.setX(50);
-                        albumCover.setImage(art);
-                        albumCover.setX(50);
-                    }
-                    if(change.getKey().equals("title"))
-                    {
-                        String name = (String) change.getValueAdded();
-                        songName.setText(name);
-                    }
-                }
-            });
+            checkForChange();
         }
     }
 
@@ -212,10 +176,8 @@ public class Controller implements Initializable
     /**
      * Handles clicking of next button
      */
-    private void skipClick(ActionEvent event)
-    {
-        if (counter + 1 == mediaFiles.size())
-        {
+    private void skipClick(ActionEvent event) {
+        if (counter + 1 == mediaFiles.size()) {
             player.getMediaPlayer().stop();
             playPause.setSelected(false);
         } else {
@@ -227,25 +189,7 @@ public class Controller implements Initializable
             player.getMediaPlayer().setOnEndOfMedia(() -> {
                 playPause.setSelected(false);
             });
-            player.getMediaPlayer().getMedia().getMetadata().addListener((MapChangeListener.Change<? extends String, ? extends Object> change) ->
-            {
-                if (change.wasAdded())
-                {
-                    if (change.getKey().equals("image"))
-                    {
-                        Image art = (Image) change.getValueAdded();
-                        double artWidth = art.getWidth(), viewWidth = albumCover.getFitWidth();
-                        albumCover.setX(50);
-                        albumCover.setImage(art);
-                        albumCover.setX(50);
-                    }
-                    if(change.getKey().equals("title"))
-                    {
-                        String name = (String) change.getValueAdded();
-                        songName.setText(name);
-                    }
-                }
-            });
+            checkForChange();
         }
     }
 }

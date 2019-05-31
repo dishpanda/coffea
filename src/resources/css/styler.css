@@ -1,44 +1,50 @@
- /* Authors: Rahul Deshpande, Siddhant Sharma */
- #root {
-     -fx-background-color: black;
- }
- .button {
-     -fx-background-color: transparent;
- }
- #backButton {
-     -fx-background-image: url("../img/previous.png");
-     -fx-background-repeat: no-repeat;
-     -fx-background-position: center;
-     -fx-background-size: 12px 12px;
- }
- #skipButton {
-     -fx-background-image: url("../img/skip.png");
-     -fx-background-repeat: no-repeat;
-     -fx-background-position: center;
-     -fx-background-size: 12px 12px;
+/* Authors: Rahul Deshpande, Siddhant Sharma */
+#root {
+    -fx-background-color: black;
+}
 
- }
- #playPause {
-     -fx-background-image: url("../img/play-arrow.png");
-     -fx-background-repeat: no-repeat;
-     -fx-background-position: center;
-     -fx-background-size: 12px 12px;
- }
- #playPause:selected {
-     -fx-background-image: url("../img/pause.png");
-     -fx-background-repeat: no-repeat;
-     -fx-background-position: center;
-     -fx-background-size: 12px 12px;
- }
+.button {
+    -fx-background-color: transparent;
+}
 
- #chooseSong {
-     -fx-background-image: url("../img/add.png");
-     -fx-background-repeat: no-repeat;
-     -fx-background-position: center;
-     -fx-background-size: 12px 12px;
- }
- #toolContainer {
-     //-fx-arc-height: 40;
-     //-fx-arc-width: 200;
-     -fx-background-size: 12px 12px;
- }
+#backButton {
+    -fx-background-image: url("../img/previous.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 12px 12px;
+}
+
+#skipButton {
+    -fx-background-image: url("../img/skip.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 12px 12px;
+}
+
+#playPause {
+    -fx-background-image: url("../img/play-arrow.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 12px 12px;
+    -fx-background-color: transparent;
+}
+
+#playPause:selected {
+    -fx-background-image: url("../img/pause.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 12px 12px;
+}
+
+#chooseSong {
+    -fx-background-image: url("../img/add.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 12px 12px;
+}
+
+#toolContainer {
+    //-fx-arc-height: 40;
+    //-fx-arc-width: 200;
+    -fx-background-size: 12px 12px;
+}
